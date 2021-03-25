@@ -6,8 +6,8 @@
 #include <chrono>
 using namespace std;
 
-const int WIDTH = 5001;
-const int HEIGHT = 5001;
+const int WIDTH = 501;
+const int HEIGHT = 501;
 set<int> visited;
 bitmap_image maze(WIDTH, HEIGHT);
 
