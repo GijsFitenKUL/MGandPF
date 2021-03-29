@@ -1,4 +1,5 @@
-#include "bitmap_image.hpp"
+#include "../Libs/bitmap_image.hpp"
+#include "../Libs/Cell.cpp"
 #include <set>
 #include <queue>
 #include <chrono>
@@ -6,43 +7,25 @@
 
 using namespace std;
 
-bitmap_image maze("maze.bmp");
 const int infty = INT_MAX;
-void loadMap();
-void dijkstraSolve();
-void dijkstraStep();
-
-class Cell{
-    public:
-        int xpos;
-        int ypos;
-        int dist = infty;
-        int parentx;
-        int parenty;
-
-    Cell(int xpos, int ypos)
-    : xpos(xpos), ypos(ypos){}
-};
-
-bool operator<(const Cell& c1, const Cell& c2)
-{
-    return c1.dist > c2.dist;
-}
-
+string bmpmap;
+bitmap_image maze(string bmpmap);
 priority_queue<Cell> pq = {};
 set<Cell> visited = {};
 set<Cell> path = {};
 unordered_map<int, int> cell_map;
-bool done = false;
 
-int goalx;
-int goaly;
-int WIDTH;
-int HEIGHT;
+void loadMap(string bmpmap);
+void dijkstraSolve();
+void dijkstraStep();
 
-int main(){
+int DijkstraSolve(){
+    int WIDTH;
+    int HEIGHT;
+    bmpmap = "maze.bmp";
+
     auto starttime = chrono::high_resolution_clock::now();
-    loadMap();
+    loadMap(bmpmap);
     auto stoptime = chrono::high_resolution_clock::now();
 
     auto duration = chrono::duration_cast<chrono::microseconds>(stoptime - starttime);
@@ -51,14 +34,15 @@ int main(){
     return 0;
 }
 
-void loadMap(){
+void loadMap(string bmpfile){
     cout << "Starting load of bitmap\n";
     //load the maze.bmp to the maze object and intialise some global variables
-    bitmap_image maze("maze.bmp");
+    bitmap_image maze(bmpfile);
     int WIDTH = maze.width();
     int HEIGHT = maze.height();
 
-    //extract the graph from the bitmap and create new cells for all white pixels
+    //extract the graph from the bitmap and push start to priorityqueue
+    //also place the goal coordinates
     int i,j;
     for(i = 0; i < WIDTH; ++i){
         for(j = 0; j < HEIGHT; ++j){
@@ -68,15 +52,9 @@ void loadMap(){
                 c.dist = 0;
                 pq.push(c);
             }else if(color.red == 255 && color.blue == 0 && color.green == 0){
-                goalx = i;
-                goaly = j;
+                int goalx = i;
+                int goaly = j;
             }
         }
-    }
-}
-
-void dijkstraSolve(){
-    while(!pq.empty() && !done){
-        //do something lmao
     }
 }

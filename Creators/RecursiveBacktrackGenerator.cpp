@@ -1,4 +1,4 @@
-#include "bitmap_image.hpp"
+#include "../Libs/bitmap_image.hpp"
 #include <iostream>
 #include <set>
 #include <array>
@@ -13,7 +13,8 @@ bitmap_image maze(WIDTH, HEIGHT);
 
 void recursiveBacktrack(int x, int y);
 
-int main(){
+int generateRecursiveMaze(){
+    cout << "\n RECURSIVE BACKTRACK GENERATOR\n";
     auto starttime = chrono::high_resolution_clock::now();
     srand(time(NULL));
     //generate random seed
@@ -35,12 +36,15 @@ int main(){
     maze.set_pixel(1, 0, 0, 255, 0);
     maze.set_pixel(WIDTH - 2, HEIGHT - 1, 255, 0, 0);
 
-    maze.save_image("maze.bmp");
+    maze.save_image("Bitmaps/RecursiveBacktrackMaze.bmp");
     auto stoptime = chrono::high_resolution_clock::now();
 
     auto duration = chrono::duration_cast<chrono::microseconds>(stoptime - starttime);
     cout << "Execution done in: " << duration.count() << " microseconds.\n";
-    cout << "All done";
+    cout << "All done\n";
+
+    maze.clear();
+    visited.~set();
     return 0;
 }
 
