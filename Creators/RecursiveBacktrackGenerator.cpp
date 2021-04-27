@@ -4,23 +4,25 @@
 #include <array>
 #include <random>
 #include <chrono>
+
 using namespace std;
 
-const int WIDTH = 501;
-const int HEIGHT = 501;
 set<int> visited;
-bitmap_image RBMaze(WIDTH, HEIGHT);
 
-void recursiveBacktrack(int x, int y);
+bitmap_image RBMaze;
 
-void generateRecursiveMaze(){
-    cout << "\nRECURSIVE BACKTRACK GENERATOR\n";
+void recursiveBacktrack(int x, int y, int WIDTH, int HEIGHT);
+
+void generateRecursiveMaze(int WIDTH, int HEIGHT){
+    cout << "\nRECURSIVE BACKTRACK GENERATOR:\n";
     auto starttime = chrono::high_resolution_clock::now();
     srand(time(NULL));
     //generate random seed
-    cout << "Starting RBMaze gen \n";
+    cout << "Starting maze generation \n";
 
     //initialise bitmap
+    RBMaze.setwidth_height(WIDTH, HEIGHT);
+
     int x,y;
     for(x = 0; x < WIDTH; ++x){
         for(y = 0; y < HEIGHT; ++y){
@@ -30,7 +32,7 @@ void generateRecursiveMaze(){
     cout << "Bitmap initialised\n";
 
     //create a set of visited cells, will be saves as x + y * width in the set
-    recursiveBacktrack(1, 1);
+    recursiveBacktrack(1, 1, WIDTH, HEIGHT);
 
     //place start and finish
     RBMaze.set_pixel(1, 0, 0, 255, 0);
@@ -48,7 +50,7 @@ void generateRecursiveMaze(){
     return;
 }
 
-void recursiveBacktrack(int x, int y){
+void recursiveBacktrack(int x, int y, int WIDTH, int HEIGHT){
     //adds this cell to the list of visited cells
     RBMaze.set_pixel(x, y, 255, 255, 255);
     visited.insert(x + y * WIDTH);
@@ -79,13 +81,18 @@ void recursiveBacktrack(int x, int y){
         if(visited.find(i) == visited.end()){
             if(x < i % WIDTH){
                 RBMaze.set_pixel(x + 1, y, 255, 255, 255);
-            }else if(x > i % WIDTH){
+            }
+            else if(x > i % WIDTH){
                 RBMaze.set_pixel(x - 1, y, 255, 255, 255);
-            }else if(y < i / HEIGHT){
+            }
+            else if(y < i / HEIGHT){
                 RBMaze.set_pixel(x, y + 1, 255, 255, 255);
-            }else{RBMaze.set_pixel(x, y - 1, 255, 255, 255);}
+            }
+            else{
+                RBMaze.set_pixel(x, y - 1, 255, 255, 255);
+            }
             RBMaze.set_pixel(i % WIDTH, i / WIDTH, 255, 255, 255);
-            recursiveBacktrack(i % WIDTH, i / WIDTH);
+            recursiveBacktrack(i % WIDTH, i / WIDTH, WIDTH, HEIGHT);
         }
     }
     neighbours.clear();

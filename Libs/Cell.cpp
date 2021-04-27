@@ -19,7 +19,7 @@ class Cell{
 
         
         double getDist(){
-            if(isWall){return __DBL_MAX__;}
+            if(wall){return __DBL_MAX__;}
             return dist;
         }
 

@@ -2,12 +2,14 @@
 #include "Solvers/Dijkstra.cpp"
 
 using namespace std;
+const int WIDTH = 401;
+const int HEIGHT = 401;
 
 int main(){
     //All of the maze generators
-    generateRecursiveMaze();
+    generateRecursiveMaze(WIDTH, HEIGHT);
 
     //All of the maze solvers, on all generated bitmaps
-    Dijkstra("this is temporary");
-    return 0;
+    DijkstraTimed("./Bitmaps/RecursiveBacktrackMaze.bmp", WIDTH, HEIGHT);
+    return 1;
 }
