@@ -9,22 +9,22 @@ using namespace std;
 const int WIDTH = 501;
 const int HEIGHT = 501;
 set<int> visited;
-bitmap_image maze(WIDTH, HEIGHT);
+bitmap_image RBMaze(WIDTH, HEIGHT);
 
 void recursiveBacktrack(int x, int y);
 
-int generateRecursiveMaze(){
-    cout << "\n RECURSIVE BACKTRACK GENERATOR\n";
+void generateRecursiveMaze(){
+    cout << "\nRECURSIVE BACKTRACK GENERATOR\n";
     auto starttime = chrono::high_resolution_clock::now();
     srand(time(NULL));
     //generate random seed
-    cout << "Starting maze gen \n";
+    cout << "Starting RBMaze gen \n";
 
     //initialise bitmap
     int x,y;
     for(x = 0; x < WIDTH; ++x){
         for(y = 0; y < HEIGHT; ++y){
-            maze.set_pixel(x, y, 0, 0, 0);
+            RBMaze.set_pixel(x, y, 0, 0, 0);
         }
     }
     cout << "Bitmap initialised\n";
@@ -33,27 +33,27 @@ int generateRecursiveMaze(){
     recursiveBacktrack(1, 1);
 
     //place start and finish
-    maze.set_pixel(1, 0, 0, 255, 0);
-    maze.set_pixel(WIDTH - 2, HEIGHT - 1, 255, 0, 0);
+    RBMaze.set_pixel(1, 0, 0, 255, 0);
+    RBMaze.set_pixel(WIDTH - 2, HEIGHT - 1, 255, 0, 0);
 
-    maze.save_image("Bitmaps/RecursiveBacktrackMaze.bmp");
+    RBMaze.save_image("Bitmaps/RecursiveBacktrackMaze.bmp");
     auto stoptime = chrono::high_resolution_clock::now();
 
     auto duration = chrono::duration_cast<chrono::microseconds>(stoptime - starttime);
     cout << "Execution done in: " << duration.count() << " microseconds.\n";
     cout << "All done\n";
 
-    maze.clear();
+    RBMaze.clear();
     visited.~set();
-    return 0;
+    return;
 }
 
 void recursiveBacktrack(int x, int y){
     //adds this cell to the list of visited cells
-    maze.set_pixel(x, y, 255, 255, 255);
+    RBMaze.set_pixel(x, y, 255, 255, 255);
     visited.insert(x + y * WIDTH);
 
-    //cout << "checking maze at " << x <<", " << y << endl;
+    //cout << "checking RBMaze at " << x <<", " << y << endl;
     //initialises a vector of neighbours
     vector<int> neighbours;
 
@@ -78,13 +78,13 @@ void recursiveBacktrack(int x, int y){
     for(int i : neighbours){
         if(visited.find(i) == visited.end()){
             if(x < i % WIDTH){
-                maze.set_pixel(x + 1, y, 255, 255, 255);
+                RBMaze.set_pixel(x + 1, y, 255, 255, 255);
             }else if(x > i % WIDTH){
-                maze.set_pixel(x - 1, y, 255, 255, 255);
+                RBMaze.set_pixel(x - 1, y, 255, 255, 255);
             }else if(y < i / HEIGHT){
-                maze.set_pixel(x, y + 1, 255, 255, 255);
-            }else{maze.set_pixel(x, y - 1, 255, 255, 255);}
-            maze.set_pixel(i % WIDTH, i / WIDTH, 255, 255, 255);
+                RBMaze.set_pixel(x, y + 1, 255, 255, 255);
+            }else{RBMaze.set_pixel(x, y - 1, 255, 255, 255);}
+            RBMaze.set_pixel(i % WIDTH, i / WIDTH, 255, 255, 255);
             recursiveBacktrack(i % WIDTH, i / WIDTH);
         }
     }

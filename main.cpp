@@ -1,5 +1,5 @@
 #include "Creators/RecursiveBacktrackgenerator.cpp"
-#include "Solvers/DijkstraSolve.cpp"
+#include "Solvers/Dijkstra.cpp"
 
 using namespace std;
 
@@ -8,4 +8,6 @@ int main(){
     generateRecursiveMaze();
 
     //All of the maze solvers, on all generated bitmaps
+    Dijkstra("this is temporary");
+    return 0;
 }

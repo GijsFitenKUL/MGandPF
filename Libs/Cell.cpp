@@ -1,16 +1,33 @@
 class Cell{
+    double dist= __DBL_MAX__;
+    int parent;
+    bool wall = false;
+    bool visited = false;
+
     public:
-        int xpos;
-        int ypos;
-        int dist = __INT_MAX__;
-        int parentx;
-        int parenty;
+        Cell(){}
 
-    Cell(int xpos, int ypos)
-    : xpos(xpos), ypos(ypos){}
+        void setWall(){wall = true;}
+        bool isWall(){return wall;}
+
+        void visit(){visited = true;}
+        bool isVisited(){return visited;}
+
+        void setDist(double newDist){
+            dist = newDist;
+        }
+
+        
+        double getDist(){
+            if(isWall){return __DBL_MAX__;}
+            return dist;
+        }
+
+        
+
+        void setParent(int parentPos){
+            parent = parentPos;
+        }
+
+        int getParent(){return parent;}
 };
-
-bool operator<(const Cell& c1, const Cell& c2)
-{
-    return c1.dist > c2.dist;
-}
