@@ -38,12 +38,12 @@ void generateRecursiveMaze(int WIDTH, int HEIGHT){
     RBMaze.set_pixel(1, 0, 0, 255, 0);
     RBMaze.set_pixel(WIDTH - 2, HEIGHT - 1, 255, 0, 0);
 
-    RBMaze.save_image("Bitmaps/RecursiveBacktrackMaze.bmp");
+    RBMaze.save_image("Bitmaps/Mazes/RecursiveBacktrackMaze.bmp");
     auto stoptime = chrono::high_resolution_clock::now();
 
     auto duration = chrono::duration_cast<chrono::microseconds>(stoptime - starttime);
     cout << "Execution done in: " << duration.count() << " microseconds.\n";
-    cout << "All done\n";
+    cout << "All done\n\n";
 
     RBMaze.clear();
     visited.~set();
