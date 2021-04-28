@@ -1,6 +1,6 @@
 # Maze Generation and Pathfinding in C++
 
-This is a sideproject which I'm working on as of April 1st 2021 (I'm not kidding), it started as a challenge from one of my TA's in an electronics course and ended up as a bit of a passion project. This is my attempt at learning C++ on my own with a project I actually enjoy!
+This is a sideproject which I'm working on as of March 25th 2021, it started as a challenge from one of my TA's in an electronics course and ended up as a bit of a passion project. This is my attempt at learning C++ on my own with a project I actually enjoy!
 
 ## Built for speed
 
