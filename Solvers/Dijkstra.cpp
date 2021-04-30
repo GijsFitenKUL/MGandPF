@@ -60,7 +60,66 @@ void Dijkstra(string bmpmap, int WIDTH, int HEIGHT){
 
 void checkNeighbours(int pos, int WIDTH, int HEIGHT){
     double currentDistance = cellArray[pos].getDist() + 1;
+
+    /*
+    //TOP RIGHT
+    if(pos % WIDTH != WIDTH - 1 && pos / WIDTH != 0){
+        if(cellArray[pos + 1 - WIDTH].getDist() > currentDistance){
+            cellArray[pos + 1 - WIDTH].setDist(currentDistance);
+            cellArray[pos + 1 - WIDTH].setParent(pos);
+            
+            Cell newCell;
+            double newDist = currentDistance + 0.5;
+            newCell.setDist(newDist);
+            newCell.setPos(pos + 1 - WIDTH);
+            pq.push(newCell);
+        }
+    }
+
+    //BOTTOM RIGHT
+    if(pos % WIDTH != WIDTH - 1 && pos / WIDTH != HEIGHT - 1){
+        if(cellArray[pos + 1 + WIDTH].getDist() > currentDistance){
+            cellArray[pos + 1 + WIDTH].setDist(currentDistance);
+            cellArray[pos + 1 + WIDTH].setParent(pos);
+
+            Cell newCell;
+            double newDist = currentDistance + 0.5;
+            newCell.setDist(newDist);
+            newCell.setPos(pos + 1 + WIDTH);
+            pq.push(newCell);
+        }
+    }
+
+    //TOP LEFT
+    if(pos > WIDTH && pos % WIDTH != 0){
+        if(cellArray[pos - 1 - WIDTH].getDist() > currentDistance){
+            cellArray[pos - 1 - WIDTH].setDist(currentDistance);
+            cellArray[pos - 1 - WIDTH].setParent(pos);
+
+            Cell newCell;
+            double newDist = currentDistance + 0.5;
+            newCell.setDist(newDist);
+            newCell.setPos(pos - 1 - WIDTH);
+            pq.push(newCell);
+        }
+    }
+
+    //BOTTOM LEFT
+    if(pos / WIDTH != HEIGHT - 1 && pos % WIDTH != 0){
+        if(cellArray[pos - 1 + WIDTH].getDist() > currentDistance){
+            cellArray[pos - 1 + WIDTH].setDist(currentDistance);
+            cellArray[pos - 1 + WIDTH].setParent(pos);
+
+            Cell newCell;
+            double newDist = currentDistance + 0.5;
+            newCell.setDist(newDist);
+            newCell.setPos(pos - 1 + WIDTH);
+            pq.push(newCell);
+        }
+    }
+    */
     
+    //RIGHT
     if(pos % WIDTH != WIDTH - 1){
         
         if(cellArray[pos + 1].getDist() > currentDistance){
@@ -74,6 +133,7 @@ void checkNeighbours(int pos, int WIDTH, int HEIGHT){
         }
     }
 
+    //LEFT
     if(pos % WIDTH != 0){
         if(cellArray[pos - 1].getDist() > currentDistance){
             cellArray[pos - 1].setDist(currentDistance);
@@ -86,6 +146,7 @@ void checkNeighbours(int pos, int WIDTH, int HEIGHT){
         }
     }
 
+    //TOP
     if(pos > WIDTH){
         if(cellArray[pos - WIDTH].getDist() > currentDistance){
             cellArray[pos - WIDTH].setDist(currentDistance);
@@ -98,6 +159,7 @@ void checkNeighbours(int pos, int WIDTH, int HEIGHT){
         }
     }
 
+    //BOTTOM
     if(pos < WIDTH * (HEIGHT - 1)){
         if(cellArray[pos + WIDTH].getDist() > currentDistance){
             cellArray[pos + WIDTH].setDist(currentDistance);
