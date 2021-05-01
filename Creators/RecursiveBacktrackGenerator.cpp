@@ -95,5 +95,6 @@ void recursiveBacktrack(int x, int y, int WIDTH, int HEIGHT){
             recursiveBacktrack(i % WIDTH, i / WIDTH, WIDTH, HEIGHT);
         }
     }
+    neighbours.clear();
     return;
 }
